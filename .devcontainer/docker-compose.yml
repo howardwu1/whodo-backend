@@ -1,0 +1,31 @@
+version: "3.9"
+
+
+services:
+  workspace:
+      container_name: ${PROJECT_NAME:-default}-workspace
+      build:
+        context: ./docker/workspace
+        args:
+          USERNAME: ${USERNAME:-vscode}
+          USER_GROUP_NAME: ${USER_GROUP_NAME:-workspace}
+          USER_UID: ${USER_UID:-1000}
+          USER_GID: ${USER_GID:-1000}
+      tty: true
+      volumes:
+        - ../:/home/${USERNAME:-vscode}/workspace:cached
+      ports:
+        - 5555:5555 
+
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: app_user
+      POSTGRES_DB: app
+      POSTGRES_PASSWORD: app_password
+
+volumes:
+  postgres-data:
