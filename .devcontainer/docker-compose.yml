@@ -3,29 +3,28 @@ version: "3.9"
 
 services:
   workspace:
-      container_name: ${PROJECT_NAME:-default}-workspace
-      build:
-        context: ./docker/workspace
-        args:
-          USERNAME: ${USERNAME:-vscode}
-          USER_GROUP_NAME: ${USER_GROUP_NAME:-workspace}
-          USER_UID: ${USER_UID:-1000}
-          USER_GID: ${USER_GID:-1000}
-      tty: true
-      volumes:
-        - ../:/home/${USERNAME:-vscode}/workspace:cached
-      ports:
-        - 5555:5555 
+    build:
+      context: ./docker/workspace
+    volumes:
+      - ../..:/workspaces:cached
+# Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
 
+    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
+    network_mode: service:db
+      
   db:
-    image: postgres:latest
+    image: postgres:alpine
     restart: unless-stopped
     volumes:
       - postgres-data:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: app_user
-      POSTGRES_DB: app
-      POSTGRES_PASSWORD: app_password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: postgres
+
+    # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
 
 volumes:
   postgres-data:

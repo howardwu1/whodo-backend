@@ -2,17 +2,15 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/java
 {
   "name": "workspace",
-  "dockerComposeFile": ["docker-compose.yml"],
+  "dockerComposeFile": "docker-compose.yml",
   "service": "workspace",
-  "workspaceFolder": "/home/vscode/workspace",
-  "remoteUser": "vscode",
-  "shutdownAction": "stopCompose",
-  "customizations":
-    {"vscode":
-      {"extensions": [
-        "vscjava.vscode-java-pack",
-        "vscjava.vscode-gradle"
-      ]}
-    }
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  // "customizations":
+  //   {"vscode":
+  //     {"extensions": [
+  //       "vscjava.vscode-java-pack",
+  //       "vscjava.vscode-gradle"
+  //     ]}
+  //   }
 }
 
