@@ -5,12 +5,13 @@
   "dockerComposeFile": "docker-compose.yml",
   "service": "workspace",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-  // "customizations":
-  //   {"vscode":
-  //     {"extensions": [
-  //       "vscjava.vscode-java-pack",
-  //       "vscjava.vscode-gradle"
-  //     ]}
-  //   }
+  "customizations":
+     {"vscode":
+      {"extensions": [
+         "vscjava.vscode-java-pack",
+         "vscjava.vscode-gradle",
+         "vmware.vscode-spring-boot"
+       ]}
+     }
 }
 

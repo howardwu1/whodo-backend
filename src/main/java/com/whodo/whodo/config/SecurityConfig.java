@@ -1,4 +1,4 @@
-package com.whodo.whodobackend.config;
+package com.whodo.whodo.config;
 
 import java.beans.BeanProperty;
 

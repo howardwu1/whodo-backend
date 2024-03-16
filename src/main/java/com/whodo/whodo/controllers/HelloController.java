@@ -1,4 +1,4 @@
-package com.whodo.whodobackend.controllers;
+package com.whodo.whodo.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
