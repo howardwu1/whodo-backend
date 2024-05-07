@@ -1,26 +1,61 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.2.3'
+	id 'org.springframework.boot' version '3.2.5'
 	id 'io.spring.dependency-management' version '1.1.4'
 }
 
 group = 'com.whodo'
 version = '0.0.1-SNAPSHOT'
 
-java {
-	sourceCompatibility = '21'
-}
+sourceCompatibility = '21'
 
 repositories {
 	mavenCentral()
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+ 	//implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
+
+	implementation "org.springframework.security:spring-security-web"
+	implementation "org.springframework.security:spring-security-config"
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 }
 
-tasks.named('test') {
+
+test {
 	useJUnitPlatform()
 }
+
+
+// plugins {
+// 	id 'java'
+// 	id 'org.springframework.boot' version '3.2.0'
+// 	id 'io.spring.dependency-management' version '1.1.4'
+// }
+
+// group = 'com.example'
+// version = '0.0.1-SNAPSHOT'
+// sourceCompatibility = '21'
+
+// repositories {
+// 	mavenCentral()
+// }
+
+// dependencies {
+// 	implementation 'org.springframework.boot:spring-boot-starter-web'
+// 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+// 	implementation 'org.springframework.boot:spring-boot-starter-security'
+// 	//  Temporary explicit version to fix Thymeleaf bug
+// 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
+// 	testImplementation 'org.springframework.security:spring-security-test'
+// 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+// }
+
+// test {
+// 	useJUnitPlatform()
+// }
