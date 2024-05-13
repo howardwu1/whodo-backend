@@ -45,21 +45,23 @@ package com.whodo.whodo.config;
 
  import org.springframework.context.annotation.Bean;
  import org.springframework.context.annotation.Configuration;
+ import java.lang.Override;
+ import org.springframework.stereotype.Component;
  import org.springframework.security.config.annotation.web.builders.HttpSecurity;
  import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
  import org.springframework.security.core.userdetails.User;
  import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
  import org.springframework.security.web.SecurityFilterChain;
- 
+ import org.springframework.web.cors.CorsConfigurationSource;
+ import org.springframework.web.cors.CorsConfiguration;
+ import org.springframework.web.servlet.config.annotation.CorsRegistry;
+ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+ import java.util.Arrays;
  import static org.springframework.security.config.Customizer.withDefaults;
- 
- /**
-  * An example of explicitly configuring Spring Security with the defaults.
-  *
-  * @author Rob Winch
-  */
+  
  @Configuration
  @EnableWebSecurity
  public class SecurityConfiguration {
@@ -68,16 +70,38 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
      public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
          // @formatter:off
          http
-                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/token/**").permitAll().requestMatchers("/hello").permitAll()
-                        .anyRequest().authenticated()
-                 )
-                 .httpBasic(withDefaults())
-                 .formLogin(withDefaults());
-         // @formatter:on
+            .authorizeHttpRequests((authorize) -> authorize
+                .requestMatchers("/token/**").permitAll().requestMatchers("/hello").permitAll()
+                .anyRequest().authenticated()
+            )            
+            .cors((cors) -> cors.configurationSource(apiConfigurationSource()))
+            .httpBasic(withDefaults())
+            .formLogin(withDefaults());
+         // @formatter:onW
          return http.build();
      }
  
+
+    //  @Component
+    //  public class WebConfig implements WebMvcConfigurer {
+    //  @Override
+    //      public void addCorsMappings(CorsRegistry registry) {
+    //          registry.addMapping("/**")
+    //                  .allowedOrigins("*")
+    //                  .allowedMethods("GET","POST", "PUT", "DELETE", "OPTIONS", "HEAD");
+    //      }
+     
+    //  }
+
+     CorsConfigurationSource apiConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList(new String[]{"*", "https://special-space-spoon-4v59rvvr74r3jrw9-3000.app.github.dev"}));
+		configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
+
      // @formatter:off
      @Bean
      public InMemoryUserDetailsManager userDetailsService() {
