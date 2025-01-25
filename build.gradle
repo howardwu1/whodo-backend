@@ -19,7 +19,15 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
  	//implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
-
+	implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+	implementation "org.modelmapper:modelmapper:3.1.1"
+	implementation "org.postgresql:postgresql:42.6.2"
+	implementation "com.mysql:mysql-connector-j"
+	implementation "org.projectlombok:lombok"
+	//from https://github.com/jwtk/jjwt?tab=readme-ov-file#gradle
+	implementation 'io.jsonwebtoken:jjwt-api:0.12.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.5' 
 	implementation "org.springframework.security:spring-security-web"
 	implementation "org.springframework.security:spring-security-config"
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
