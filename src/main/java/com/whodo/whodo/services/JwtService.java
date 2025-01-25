@@ -40,9 +40,8 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts
-                .parserBuilder()
-                .setSigningKey(getSignKey())
+        return Jwts.parser()
+                .verifyWith(getSigningKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
@@ -60,7 +59,7 @@ public class JwtService {
     public String generateToken(String username, Boolean admin){
         Map<String, Object> claims = new HashMap<>();
         //Adding claims here because we want to have an admin claim depending on if user is an admin or not
-        claims.add("admin", admin);
+        claims.put("admin", admin);
         
         return createToken(claims, username);
     }
@@ -78,4 +77,5 @@ public class JwtService {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET);
         return Keys.hmacShaKeyFor(keyBytes);
     }
+
 }
